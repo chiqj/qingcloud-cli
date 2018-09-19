@@ -4,6 +4,9 @@ import pytest
 
 from src.base import APIBase, QingCloudBase
 
+# httpbin_get = "https://httpbin.org/get"
+httpbin_get = "http://localhost:8080/get"
+
 
 @pytest.fixture
 def api_base():
@@ -25,9 +28,9 @@ def qingcloud_base():
 def test_base_get(api_base):
     """测试 APIBase 基础类发送 get 请求"""
     params = {"foo": "bar"}
-    resp = api_base._get("https://httpbin.org/get", params=params)
+    resp = api_base._get(httpbin_get, params=params)
 
-    assert resp["url"] == "https://httpbin.org/get?foo=bar"
+    assert resp["url"] == httpbin_get + "?foo=bar"
     assert resp["args"] == params
 
 
@@ -71,6 +74,6 @@ def test_get(qingcloud_base):
         "action": "RunInstances",
         "time_stamp": "2013-08-27T14:30:10Z"
     }
-    qingcloud_base.url = "https://httpbin.org/get"
+    qingcloud_base.url = httpbin_get
     response = qingcloud_base.get(params)
     assert response["args"]["time_stamp"] == "2013-08-27T14:30:10Z"
