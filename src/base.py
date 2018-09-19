@@ -10,6 +10,20 @@ from json import JSONDecodeError
 import requests
 from requests.exceptions import ReadTimeout, ConnectTimeout
 
+RET_CODE_DICT = {
+    1100: "消息格式错误",
+    1200: "身份验证失败",
+    1300: "消息已过期",
+    1400: "访问被拒绝",
+    2100: "找不到资源",
+    2400: "余额不足",
+    2500: "超过配额",
+    5000: "内部错误",
+    5100: "服务器繁忙",
+    5200: "资源不足",
+    5300: "服务更新中",
+}
+
 
 class APIBase(object):
     """ 自定义web请求类，封装requests """
@@ -120,4 +134,10 @@ class QingCloudBase(APIBase):
 
         # 发起请求
         response = self._get(self.url, params)
+
+        # 错误处理
+        if "ret_code" in response:
+            error_type = RET_CODE_DICT.get(response["ret_code"], "未知错误")
+            response["message"] = error_type + " | " + response["message"]
+
         return response

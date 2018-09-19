@@ -74,6 +74,5 @@ def test_get(qingcloud_base):
         "action": "RunInstances",
         "time_stamp": "2013-08-27T14:30:10Z"
     }
-    qingcloud_base.url = httpbin_get
     response = qingcloud_base.get(params)
-    assert response["args"]["time_stamp"] == "2013-08-27T14:30:10Z"
+    assert response["ret_code"] == 1300
