@@ -2,6 +2,7 @@
 
 import hmac
 import base64
+from datetime import datetime
 from urllib.parse import urlencode, quote, urlsplit, quote_plus
 from functools import partialmethod
 from json import JSONDecodeError
@@ -65,6 +66,7 @@ class QingCloudBase(APIBase):
     """ 青云 Base 类，包括生成签名参数和请求 """
     def __init__(self, access_key_id, secret_access_key):
         """ 传入 API 密钥的 ID（access_key_id）和私钥（secret_access_key）"""
+        super(QingCloudBase, self).__init__()
         self.access_key_id = access_key_id
         self.secret_access_key = secret_access_key
         self.url = "https://api.qingcloud.com/iaas/"
@@ -99,3 +101,23 @@ class QingCloudBase(APIBase):
         signature = quote_plus(sign)
 
         return signature
+
+    def get(self, params):
+        """发起 API 接口请求"""
+        common_params = {
+            "time_stamp": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
+            "access_key_id": self.access_key_id,
+            "version": 1,
+            "signature_method": "HmacSHA256",
+            "signature_version": 1,
+        }
+        # 使用户输入可以更新公共参数配置
+        common_params.update(params)
+        params = common_params
+
+        # 计算签名
+        params["signature"] = self.calc_signature(params)
+
+        # 发起请求
+        response = self._get(self.url, params)
+        return response
