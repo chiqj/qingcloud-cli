@@ -52,8 +52,8 @@ def test_calc_signature(qingcloud_base):
         "action": "RunInstances",
         "time_stamp": "2013-08-27T14:30:10Z"
     }
-    result = "32bseYy39DOlatuewpeuW5vpmW51sD1A%2FJdGynqSpP8%3D"
-    assert result == qingcloud_base.calc_signature(params)
+    result = "32bseYy39DOlatuewpeuW5vpmW51sD1A/JdGynqSpP8="
+    assert qingcloud_base.calc_signature(params) == result
 
 
 def test_get(qingcloud_base):

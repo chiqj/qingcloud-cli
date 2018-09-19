@@ -3,26 +3,12 @@
 import hmac
 import base64
 from datetime import datetime
-from urllib.parse import urlencode, quote, urlsplit, quote_plus
+from urllib.parse import urlencode, quote, urlsplit
 from functools import partialmethod
 from json import JSONDecodeError
 
 import requests
 from requests.exceptions import ReadTimeout, ConnectTimeout
-
-RET_CODE_DICT = {
-    1100: "消息格式错误",
-    1200: "身份验证失败",
-    1300: "消息已过期",
-    1400: "访问被拒绝",
-    2100: "找不到资源",
-    2400: "余额不足",
-    2500: "超过配额",
-    5000: "内部错误",
-    5100: "服务器繁忙",
-    5200: "资源不足",
-    5300: "服务更新中",
-}
 
 
 class APIBase(object):
@@ -109,10 +95,10 @@ class QingCloudBase(APIBase):
         )
 
         # 5.2 将签名进行 Base64 编码
-        sign = base64.b64encode(h.digest())
+        signature = base64.b64encode(h.digest()).decode()
 
         # 5.3 将 Base64 编码后的结果进行 URL 编码，末尾存在空格时，直接将空格转为 “+”
-        signature = quote_plus(sign)
+        # 这一步省略，requests 对 get 请求参数会自动进行 URL 编码
 
         return signature
 
@@ -134,10 +120,5 @@ class QingCloudBase(APIBase):
 
         # 发起请求
         response = self._get(self.url, params)
-
-        # 错误处理
-        if "ret_code" in response:
-            error_type = RET_CODE_DICT.get(response["ret_code"], "未知错误")
-            response["message"] = error_type + " | " + response["message"]
 
         return response
