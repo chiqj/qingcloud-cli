@@ -10,7 +10,7 @@ from config import CONFIG_FILE_PATH, INSTANCE_TYPE_LIST, INSTANCE_CLASS_LIST, \
     STATUS_LIST
 
 
-@click.command(short_help="获取一个或多个主机")
+@click.command(short_help="获取一台或多台主机")
 @click.option("--instances", "-i", multiple=True, help="主机ID")
 @click.option("--image_id", "-m", multiple=True, help="一个或多个映像ID")
 @click.option(
@@ -77,7 +77,7 @@ def describe_instances(**kw):
     # 只传一个参数的 option
     for name in (
                 "instance_class", "search_word", "dedicated_host_group_id",
-                "dedicated_host_id", "owner", "zone"
+                "dedicated_host_id", "owner"
             ):
         if kw[name] is not None:
             params[name] = kw[name]
@@ -89,6 +89,8 @@ def describe_instances(**kw):
     # 拥有默认值的参数
     params["offset"] = kw["verbose"] if kw["verbose"] >= 0 else 0
     params["limit"] = kw["limit"]
+
+    params["zone"] = kw["zone"].lower()
 
     # 构造请求类，发起请求
     qc_base = QingCloudBase(**kw["config"])
