@@ -7,17 +7,8 @@ import click
 
 from base import QingCloudBase
 from iaas import validate_config_file
-from config import CONFIG_FILE_PATH
-
-INSTANCE_TYPE_CHOICE = click.Choice([
-    "c1m1", "c1m2", "c1m4", "c2m2", "c2m4", "c2m8", "c4m4", "c4m8", "c4m16",
-    "small_b", "small_c", "medium_a", "medium_b", "medium_c", "large_a",
-    "large_b", "large_c",
-])
-INSTANCE_CLASS_CHOICE = click.Choice(["0", "1"])
-STATUS_CHOICE = click.Choice([
-    "pending", "running", "stopped", "suspended", "terminated", "ceased"
-])
+from config import CONFIG_FILE_PATH, INSTANCE_TYPE_LIST, INSTANCE_CLASS_LIST, \
+    STATUS_LIST
 
 
 @click.command(short_help="获取一个或多个主机")
@@ -27,15 +18,20 @@ STATUS_CHOICE = click.Choice([
     "--instance_type",
     "-t",
     multiple=True,
-    type=INSTANCE_TYPE_CHOICE,
+    type=click.Choice(INSTANCE_TYPE_LIST),
     help="主机配置类型",
 )
 @click.option(
     "--instance_class",
-    type=INSTANCE_CLASS_CHOICE,
+    type=click.Choice(INSTANCE_CLASS_LIST),
     help="主机性能类型: 性能型:0, 超高性能型:1",
 )
-@click.option("--status", multiple=True, type=STATUS_CHOICE, help="主机状态")
+@click.option(
+    "--status",
+    multiple=True,
+    type=click.Choice(STATUS_LIST),
+    help="主机状态"
+)
 @click.option("--search_word", help="搜索关键词, 支持主机ID, 主机名称")
 @click.option("--tags", multiple=True, help="按照标签ID过滤, 只返回已绑定某标签的资源")
 @click.option("--dedicated_host_group_id", help="按照专属宿主机组过滤")
