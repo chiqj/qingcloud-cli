@@ -51,7 +51,6 @@ from config import CONFIG_FILE_PATH, INSTANCE_TYPE_LIST, INSTANCE_CLASS_LIST, \
     show_default=True,
     help="返回数据长度，最大100",
 )
-@click.option("--zone", prompt=True, help="区域 ID，注意要小写")
 @click.option(
     "--config",
     type=click.Path(),
@@ -60,10 +59,13 @@ from config import CONFIG_FILE_PATH, INSTANCE_TYPE_LIST, INSTANCE_CLASS_LIST, \
     show_default=True,
     help="指定配置文件",
 )
+@click.argument("zone", required=True)
 def describe_instances(**kw):
     """
     可根据主机 ID, 状态, 主机名称, 映像 ID 作过滤条件，来获取主机列表。
     如果不指定任何过滤条件, 默认返回你所拥有的所有主机。
+
+    ZONE: 区域 ID，注意要小写
     """
     params = dict(action="DescribeInstances")
 
