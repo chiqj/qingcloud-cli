@@ -25,6 +25,8 @@ def validate_config_file(ctx, param, value):
 
 if __name__ == '__main__':
     from describe_instances import describe_instances
+    from terminate_instances import terminate_instances
     iaas = click.Group("iaas")
     iaas.add_command(describe_instances)
+    iaas.add_command(terminate_instances)
     iaas()
