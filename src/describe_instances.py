@@ -42,12 +42,19 @@ STATUS_CHOICE = click.Choice([
 @click.option("--dedicated_host_id", help="按照专属宿主机组中某个宿主机过滤")
 @click.option("--owner", help="按照用户账户过滤, 只返回指定账户的资源")
 @click.option("--verbose", count=True, help="是否返回冗长的信息")
-@click.option("--offset", type=int, default=0, help="数据偏移量, 默认为0")
+@click.option(
+    "--offset",
+    type=int,
+    default=0,
+    show_default=True,
+    help="数据偏移量"
+)
 @click.option(
     "--limit",
     type=click.IntRange(1, 100, clamp=True),
     default=20,
-    help="返回数据长度，默认为20，最大100",
+    show_default=True,
+    help="返回数据长度，最大100",
 )
 @click.option("--zone", prompt=True, help="区域 ID，注意要小写")
 @click.option(
