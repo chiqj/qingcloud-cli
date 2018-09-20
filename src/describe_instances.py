@@ -6,6 +6,8 @@ from pprint import pformat
 import click
 
 from base import QingCloudBase
+from iaas import validate_config_file
+from config import CONFIG_FILE_PATH
 
 INSTANCE_TYPE_CHOICE = click.Choice([
     "c1m1", "c1m2", "c1m4", "c2m2", "c2m4", "c2m8", "c4m4", "c4m8", "c4m16",
@@ -48,6 +50,14 @@ STATUS_CHOICE = click.Choice([
     help="返回数据长度，默认为20，最大100",
 )
 @click.option("--zone", prompt=True, help="区域 ID，注意要小写")
+@click.option(
+    "--config",
+    type=click.Path(),
+    callback=validate_config_file,
+    default=CONFIG_FILE_PATH,
+    show_default=True,
+    help="指定配置文件",
+)
 def describe_instances(**kw):
     """
     可根据主机 ID, 状态, 主机名称, 映像 ID 作过滤条件，来获取主机列表。
@@ -76,12 +86,8 @@ def describe_instances(**kw):
     params["offset"] = kw["verbose"] if kw["verbose"] >= 0 else 0
     params["limit"] = kw["limit"]
 
-    # 获取 API 密钥 和 API 密钥的私钥
-    access_key_id = os.environ.get("ACCESS_KEY_ID")
-    secret_access_key = os.environ.get("SECRET_ACCESS_KEY")
-
     # 构造请求类，发起请求
-    qc_base = QingCloudBase(access_key_id, secret_access_key)
+    qc_base = QingCloudBase(**kw["config"])
     response = qc_base.get(params)
 
     # 美化格式后输出

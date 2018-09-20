@@ -64,11 +64,11 @@ class APIBase(object):
 
 class QingCloudBase(APIBase):
     """ 青云 Base 类，包括生成签名参数和请求 """
-    def __init__(self, access_key_id, secret_access_key):
+    def __init__(self, qy_access_key_id, qy_secret_access_key):
         """ 传入 API 密钥的 ID（access_key_id）和私钥（secret_access_key）"""
         super(QingCloudBase, self).__init__()
-        self.access_key_id = access_key_id
-        self.secret_access_key = secret_access_key
+        self.access_key_id = qy_access_key_id
+        self.secret_access_key = qy_secret_access_key
         self.url = "https://api.qingcloud.com/iaas/"
 
     def calc_signature(self, params, http_method="GET", digestmod="SHA256"):
