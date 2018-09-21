@@ -15,7 +15,7 @@ def validate_login_mode(ctx, param, value):
     choice = ("keypair", "passwd")
     if value not in choice:
         raise click.BadParameter(
-            f"invalid choice: {value}. (choose from {', '.join(choice)})"
+            f"invalid choice: {value}. (choose from {', '.join(choice)})"   # noqa:ignore=E999
         )
     return value
 
@@ -178,13 +178,16 @@ def validate_login_mode(ctx, param, value):
 @click.argument("image_id", required=True)
 @click.argument("login_mode", required=True, callback=validate_login_mode)
 def run_instances(**kw):
-    """当你创建主机时，主机会先进入 pending 状态，直到创建完成后，变为 running 状态。 你可以使用 describe_instances 检查主机状态。
+    """
+    当你创建主机时，主机会先进入 pending 状态，直到创建完成后，变为 running 状态。
+    你可以使用 describe_instances 检查主机状态。
 
     ZONE：区域 ID，注意要小写
 
     IMAGE_ID：映像ID，此映像将作为主机的模板。可传青云提供的映像 ID，或自己创建的映像 ID
 
-    LOGIN_MODE：指定登录方式。当为 linux 主机时，有效值为 keypair 和 passwd; 当为 windows 主机时，只能选用 passwd 登录方式。
+    LOGIN_MODE：指定登录方式。当为 linux 主机时，有效值为 keypair 和 passwd;
+    当为 windows 主机时，只能选用 passwd 登录方式。
 
     """
     params = dict(action="RunInstances")
@@ -255,7 +258,8 @@ def run_instances(**kw):
                 "os_disk_size", "count", "instance_name", "hostname",
                 "instance_class", "cpu_model", "cpu_topology", "gpu",
                 "userdata_type", "userdata_path", "target_user",
-                "dedicated_host_group_id", "dedicated_host_id", "instance_group"
+                "dedicated_host_group_id", "dedicated_host_id",
+                "instance_group"
             ):
         if kw[name] is not None:
             params[name] = kw[name]
@@ -263,7 +267,6 @@ def run_instances(**kw):
     # flag 参数
     for name in ("nic_mqueue", "need_newsid", "need_userdata"):
         params[name] = int(kw[name])
-
 
     # 可以传多个参数的 option
     for name in ("vxnets", "volumes"):
