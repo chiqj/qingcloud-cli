@@ -20,7 +20,7 @@ setup(
     # test_suite="test",
     packages=find_packages(),
     include_package_data=True,
-    install_requires=["click", "requests", "pytest", "PyYAML"],
+    install_requires=["click", "requests", "PyYAML"],
 
     entry_points=entry_points,
 )
