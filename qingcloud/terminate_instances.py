@@ -5,10 +5,11 @@ from pprint import pformat
 import click
 
 from qingcloud.base import QingCloudBase
-from qingcloud.common import validate_config_file, CONFIG_FILE_PATH
+from qingcloud.common import validate_config_file, CONFIG_FILE_PATH, \
+    CONTEXT_SETTINGS
 
 
-@click.command(short_help="销毁一台或多台主机")
+@click.command(short_help="销毁一台或多台主机", context_settings=CONTEXT_SETTINGS)
 @click.option(
     "--direct_cease",
     is_flag=True,

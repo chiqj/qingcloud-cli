@@ -6,6 +6,7 @@ from qingcloud.describe_instances import describe_instances
 from qingcloud.terminate_instances import terminate_instances
 from qingcloud.run_instances import run_instances
 
+# 创建命令组对象
 iaas = click.Group("iaas")
 
 iaas.add_command(describe_instances)

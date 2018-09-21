@@ -7,6 +7,7 @@ import click
 
 
 def validate_config_file(ctx, param, value):
+    """读取配置文件"""
     path = os.path.expanduser(value)
     # 检查文件存在
     if not os.path.isfile(path):
@@ -22,6 +23,8 @@ def validate_config_file(ctx, param, value):
     except:         # noqa: ignore=E722
         raise click.BadParameter(f"Config file \"{path}\" format error.")
 
+
+CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
 CONFIG_FILE_PATH = "~/.qingcloud/config.yaml"
 INSTANCE_TYPE_LIST = [

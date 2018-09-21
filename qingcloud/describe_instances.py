@@ -6,15 +6,14 @@ import click
 
 from qingcloud.base import QingCloudBase
 from qingcloud.common import validate_config_file, CONFIG_FILE_PATH, \
-    INSTANCE_TYPE_LIST, INSTANCE_CLASS_LIST, STATUS_LIST
+    INSTANCE_TYPE_LIST, INSTANCE_CLASS_LIST, STATUS_LIST, CONTEXT_SETTINGS
 
 
-@click.command(short_help="获取一台或多台主机")
-@click.option("--instances", "-i", multiple=True, help="主机ID")
-@click.option("--image_id", "-m", multiple=True, help="一个或多个映像ID")
+@click.command(short_help="获取一台或多台主机", context_settings=CONTEXT_SETTINGS)
+@click.option("--instances", multiple=True, help="主机ID")
+@click.option("--image_id", multiple=True, help="一个或多个映像ID")
 @click.option(
     "--instance_type",
-    "-t",
     multiple=True,
     type=click.Choice(INSTANCE_TYPE_LIST),
     help="主机配置类型",
@@ -35,7 +34,7 @@ from qingcloud.common import validate_config_file, CONFIG_FILE_PATH, \
 @click.option("--dedicated_host_group_id", help="按照专属宿主机组过滤")
 @click.option("--dedicated_host_id", help="按照专属宿主机组中某个宿主机过滤")
 @click.option("--owner", help="按照用户账户过滤, 只返回指定账户的资源")
-@click.option("--verbose", count=True, help="是否返回冗长的信息")
+@click.option("--verbose", "-v", count=True, help="是否返回冗长的信息")
 @click.option(
     "--offset",
     type=int,

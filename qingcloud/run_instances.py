@@ -7,7 +7,7 @@ import click
 from qingcloud.base import QingCloudBase
 from qingcloud.common import validate_config_file, CONFIG_FILE_PATH, \
     INSTANCE_TYPE_LIST, CPU_LIST, MEMORY_LIST, INSTANCE_CLASS_LIST, \
-    CPU_MODEL_LIST, USERDATA_TYPE_LIST
+    CPU_MODEL_LIST, USERDATA_TYPE_LIST, CONTEXT_SETTINGS
 
 
 def validate_login_mode(ctx, param, value):
@@ -20,7 +20,10 @@ def validate_login_mode(ctx, param, value):
     return value
 
 
-@click.command(short_help="创建指定配置，指定数量的主机。")
+@click.command(
+    short_help="创建指定配置，指定数量的主机。",
+    context_settings=CONTEXT_SETTINGS
+)
 @click.option(
     "--instance_type",
     type=click.Choice(INSTANCE_TYPE_LIST),
