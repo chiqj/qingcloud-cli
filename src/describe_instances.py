@@ -4,9 +4,9 @@ from pprint import pformat
 
 import click
 
-from base import QingCloudBase
-from iaas import validate_config_file
-from config import CONFIG_FILE_PATH, INSTANCE_TYPE_LIST, INSTANCE_CLASS_LIST, \
+from src.base import QingCloudBase
+from src.iaas import validate_config_file
+from src.config import CONFIG_FILE_PATH, INSTANCE_TYPE_LIST, INSTANCE_CLASS_LIST, \
     STATUS_LIST
 
 

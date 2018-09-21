@@ -2,9 +2,9 @@
 
 import click
 
-from describe_instances import describe_instances
-from terminate_instances import terminate_instances
-from run_instances import run_instances
+from src.describe_instances import describe_instances
+from src.terminate_instances import terminate_instances
+from src.run_instances import run_instances
 
 iaas = click.Group("iaas")
 

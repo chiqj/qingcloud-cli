@@ -18,7 +18,7 @@ setup(
     license="MIT",
 
     # test_suite="test",
-    packages=find_packages(),
+    packages=["src"],
     include_package_data=True,
     install_requires=["click", "requests", "PyYAML"],
 
