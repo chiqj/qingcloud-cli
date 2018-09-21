@@ -5,8 +5,7 @@ from pprint import pformat
 import click
 
 from src.base import QingCloudBase
-from src.iaas import validate_config_file
-from src.config import CONFIG_FILE_PATH
+from src.common import validate_config_file, CONFIG_FILE_PATH
 
 
 @click.command(short_help="销毁一台或多台主机")

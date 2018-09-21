@@ -5,9 +5,8 @@ from pprint import pformat
 import click
 
 from src.base import QingCloudBase
-from src.iaas import validate_config_file
-from src.config import CONFIG_FILE_PATH, INSTANCE_TYPE_LIST, INSTANCE_CLASS_LIST, \
-    STATUS_LIST
+from src.common import validate_config_file, CONFIG_FILE_PATH, \
+    INSTANCE_TYPE_LIST, INSTANCE_CLASS_LIST, STATUS_LIST
 
 
 @click.command(short_help="获取一台或多台主机")

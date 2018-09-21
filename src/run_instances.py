@@ -5,9 +5,9 @@ from pprint import pformat
 import click
 
 from src.base import QingCloudBase
-from src.iaas import validate_config_file
-from src.config import CONFIG_FILE_PATH, INSTANCE_TYPE_LIST, CPU_LIST, \
-    MEMORY_LIST, INSTANCE_CLASS_LIST, CPU_MODEL_LIST, USERDATA_TYPE_LIST
+from src.common import validate_config_file, CONFIG_FILE_PATH, \
+    INSTANCE_TYPE_LIST, CPU_LIST, MEMORY_LIST, INSTANCE_CLASS_LIST, \
+    CPU_MODEL_LIST, USERDATA_TYPE_LIST
 
 
 def validate_login_mode(ctx, param, value):
