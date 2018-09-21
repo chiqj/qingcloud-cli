@@ -4,7 +4,7 @@ from setuptools import setup
 
 entry_points = """
 [console_scripts]
-iaas=src.entry:iaas
+iaas=qingcloud.entry:iaas
 """
 
 setup(
