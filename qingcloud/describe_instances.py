@@ -4,8 +4,8 @@ from pprint import pformat
 
 import click
 
-from src.base import QingCloudBase
-from src.common import validate_config_file, CONFIG_FILE_PATH, \
+from qingcloud.base import QingCloudBase
+from qingcloud.common import validate_config_file, CONFIG_FILE_PATH, \
     INSTANCE_TYPE_LIST, INSTANCE_CLASS_LIST, STATUS_LIST
 
 

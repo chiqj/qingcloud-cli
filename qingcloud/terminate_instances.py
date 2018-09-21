@@ -4,8 +4,8 @@ from pprint import pformat
 
 import click
 
-from src.base import QingCloudBase
-from src.common import validate_config_file, CONFIG_FILE_PATH
+from qingcloud.base import QingCloudBase
+from qingcloud.common import validate_config_file, CONFIG_FILE_PATH
 
 
 @click.command(short_help="销毁一台或多台主机")

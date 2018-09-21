@@ -1,6 +1,6 @@
 # coding=utf-8
 
-from setuptools import setup, find_packages
+from setuptools import setup
 
 entry_points = """
 [console_scripts]
@@ -18,7 +18,7 @@ setup(
     license="MIT",
 
     # test_suite="test",
-    packages=["src"],
+    packages=["qingcloud"],
     include_package_data=True,
     install_requires=["click", "requests", "PyYAML"],
 
