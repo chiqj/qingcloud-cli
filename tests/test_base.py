@@ -2,7 +2,7 @@
 
 import pytest
 
-from src.base import APIBase, QingCloudBase
+from qingcloud.base import APIBase, QingCloudBase
 
 # httpbin_get = "https://httpbin.org/get"
 httpbin_get = "http://localhost:8080/get"
@@ -19,8 +19,8 @@ def api_base():
 @pytest.fixture
 def qingcloud_base():
     base = QingCloudBase(
-        access_key_id="QYACCESSKEYIDEXAMPLE",
-        secret_access_key="SECRETACCESSKEY",
+        qy_access_key_id="QYACCESSKEYIDEXAMPLE",
+        qy_secret_access_key="SECRETACCESSKEY",
     )
     return base
 
