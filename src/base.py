@@ -8,7 +8,7 @@ from functools import partialmethod
 from json import JSONDecodeError
 
 import requests
-from requests.exceptions import ReadTimeout, ConnectTimeout
+from requests.exceptions import ReadTimeout, ConnectTimeout, RequestException
 
 
 class APIBase(object):
@@ -46,14 +46,20 @@ class APIBase(object):
             data = resp.json()
         except (ReadTimeout, ConnectTimeout):
             return {
-                "errcode": "sdk001",
-                "errmsg": "connection or read data timeout",
+                "ret_code": "sdk001",
+                "message": "connection or read data timeout",
             }
         except JSONDecodeError:
             return {
-                "errcode": "sdk002",
-                "errmsg": "invalid json data",
+                "ret_code": "sdk002",
+                "message": "invalid json data",
             }
+        except RequestException as e:
+            return {
+                "ret_code": "sdk003",
+                "message": str(e),
+            }
+
         return data
 
     _get = partialmethod(_request, "GET")
