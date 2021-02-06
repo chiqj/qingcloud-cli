@@ -1,5 +1,9 @@
 # qingcloud-cli
 
+Archived at 2021-02-06. 这并不是一个完整的项目，而是一份笔试题的答卷。
+
+请使用官方 CLI 库 [yunify/qingcloud\-cli: Command Line Interface for QingCloud](https://github.com/yunify/qingcloud-cli)
+
 # 引用的开源库
 
 - [PyYAML](https://pyyaml.org/wiki/PyYAMLDocumentation) 解析 YAML 格式配置文件
